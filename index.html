@@ -1341,6 +1341,17 @@ select option {
             <input type="number" id="inv_valor" placeholder="0.00" step="0.01">
           </div>
           <div>
+            <label>Modo de Rentabilidade</label>
+            <select id="inv_modo_rentabilidade" onchange="toggleModoRentabilidade()">
+              <option value="percentual">Percentual (%)</option>
+              <option value="fixo">Valor Fixo (R$)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- MODO PERCENTUAL -->
+        <div id="modoPercentual" class="form-row">
+          <div>
             <label>Rentabilidade (%)</label>
             <input type="number" id="inv_rentabilidade" placeholder="0.00" step="0.01">
           </div>
@@ -1353,6 +1364,25 @@ select option {
               <option value="trimestral">Trimestral (% a.t.)</option>
               <option value="semestral">Semestral (% a.s.)</option>
               <option value="anual" selected>Anual (% a.a.)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- MODO VALOR FIXO -->
+        <div id="modoFixo" class="form-row" style="display: none;">
+          <div>
+            <label>Rendimento Fixo (R$)</label>
+            <input type="number" id="inv_rendimento_fixo" placeholder="0.00" step="0.01">
+          </div>
+          <div>
+            <label>Período do Rendimento</label>
+            <select id="inv_periodo_fixo">
+              <option value="diario">Por Dia</option>
+              <option value="mensal" selected>Por Mês</option>
+              <option value="bimestral">Por Bimestre (2 meses)</option>
+              <option value="trimestral">Por Trimestre (3 meses)</option>
+              <option value="semestral">Por Semestre (6 meses)</option>
+              <option value="anual">Por Ano</option>
             </select>
           </div>
         </div>
@@ -1586,6 +1616,17 @@ select option {
         <input type="number" id="edit_valor" step="0.01">
       </div>
       <div>
+        <label>Modo de Rentabilidade</label>
+        <select id="edit_modo_rentabilidade" onchange="toggleModoRentabilidadeEdit()">
+          <option value="percentual">Percentual (%)</option>
+          <option value="fixo">Valor Fixo (R$)</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- MODO PERCENTUAL -->
+    <div id="editModoPercentual" class="form-row">
+      <div>
         <label>Rentabilidade (%)</label>
         <input type="number" id="edit_rentabilidade" step="0.01">
       </div>
@@ -1601,6 +1642,26 @@ select option {
         </select>
       </div>
     </div>
+
+    <!-- MODO VALOR FIXO -->
+    <div id="editModoFixo" class="form-row" style="display: none;">
+      <div>
+        <label>Rendimento Fixo (R$)</label>
+        <input type="number" id="edit_rendimento_fixo" step="0.01">
+      </div>
+      <div>
+        <label>Período do Rendimento</label>
+        <select id="edit_periodo_fixo">
+          <option value="diario">Por Dia</option>
+          <option value="mensal">Por Mês</option>
+          <option value="bimestral">Por Bimestre (2 meses)</option>
+          <option value="trimestral">Por Trimestre (3 meses)</option>
+          <option value="semestral">Por Semestre (6 meses)</option>
+          <option value="anual">Por Ano</option>
+        </select>
+      </div>
+    </div>
+
     <div class="form-row">
       <div>
         <label>Data de Aplicação</label>
@@ -1712,6 +1773,42 @@ function displayCurrency(value) {
   return parseFloat(value || 0).toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2});
 }
 
+// ==================== MODO DE RENTABILIDADE ====================
+
+/**
+ * Alterna entre modo percentual e valor fixo no formulário principal
+ */
+function toggleModoRentabilidade() {
+  const modo = document.getElementById('inv_modo_rentabilidade').value;
+  const modoPercentual = document.getElementById('modoPercentual');
+  const modoFixo = document.getElementById('modoFixo');
+  
+  if (modo === 'percentual') {
+    modoPercentual.style.display = 'grid';
+    modoFixo.style.display = 'none';
+  } else {
+    modoPercentual.style.display = 'none';
+    modoFixo.style.display = 'grid';
+  }
+}
+
+/**
+ * Alterna entre modo percentual e valor fixo no modal de edição
+ */
+function toggleModoRentabilidadeEdit() {
+  const modo = document.getElementById('edit_modo_rentabilidade').value;
+  const modoPercentual = document.getElementById('editModoPercentual');
+  const modoFixo = document.getElementById('editModoFixo');
+  
+  if (modo === 'percentual') {
+    modoPercentual.style.display = 'grid';
+    modoFixo.style.display = 'none';
+  } else {
+    modoPercentual.style.display = 'none';
+    modoFixo.style.display = 'grid';
+  }
+}
+
 // ==================== CONVERSÃO DE RENTABILIDADE ====================
 
 /**
@@ -1748,6 +1845,45 @@ function converterParaTaxaAnual(taxa, tipo) {
 }
 
 /**
+ * Converte rendimento fixo para taxa anual equivalente
+ */
+function converterRendimentoFixoParaTaxaAnual(valorInvestido, rendimentoFixo, periodo) {
+  const valor = parseFloat(valorInvestido) || 0;
+  const rendimento = parseFloat(rendimentoFixo) || 0;
+  
+  if (valor === 0) return 0;
+  
+  // Calcular quantos períodos existem em um ano
+  let periodosPorAno = 1;
+  switch(periodo) {
+    case 'diario':
+      periodosPorAno = 365;
+      break;
+    case 'mensal':
+      periodosPorAno = 12;
+      break;
+    case 'bimestral':
+      periodosPorAno = 6;
+      break;
+    case 'trimestral':
+      periodosPorAno = 4;
+      break;
+    case 'semestral':
+      periodosPorAno = 2;
+      break;
+    case 'anual':
+      periodosPorAno = 1;
+      break;
+  }
+  
+  // Rendimento total anual
+  const rendimentoAnual = rendimento * periodosPorAno;
+  
+  // Taxa percentual anual equivalente
+  return (rendimentoAnual / valor) * 100;
+}
+
+/**
  * Retorna o texto formatado do tipo de rentabilidade
  */
 function obterTextoTipoRentabilidade(tipo) {
@@ -1760,6 +1896,21 @@ function obterTextoTipoRentabilidade(tipo) {
     'anual': 'a.a.'
   };
   return tipos[tipo] || 'a.a.';
+}
+
+/**
+ * Retorna o texto formatado do período de rendimento fixo
+ */
+function obterTextoPeriodoFixo(periodo) {
+  const periodos = {
+    'diario': 'por dia',
+    'mensal': 'por mês',
+    'bimestral': 'por bimestre',
+    'trimestral': 'por trimestre',
+    'semestral': 'por semestre',
+    'anual': 'por ano'
+  };
+  return periodos[periodo] || 'por mês';
 }
 
 // ==================== CÁLCULO DE RENDIMENTOS ====================
@@ -1946,8 +2097,7 @@ function salvarInvestimento() {
   const modalidade = document.getElementById('inv_modalidade').value;
   const nome = document.getElementById('inv_nome').value.trim();
   const valor = document.getElementById('inv_valor').value;
-  const rentabilidade = document.getElementById('inv_rentabilidade').value;
-  const tipoRentabilidade = document.getElementById('inv_tipo_rentabilidade').value;
+  const modoRentabilidade = document.getElementById('inv_modo_rentabilidade').value;
   const data = document.getElementById('inv_data').value;
   const obs = document.getElementById('inv_obs').value.trim();
   
@@ -1956,22 +2106,69 @@ function salvarInvestimento() {
     return;
   }
   
-  // Converter a rentabilidade para taxa anual equivalente
-  const rentabilidadeOriginal = parseFloat(rentabilidade || 0);
-  const rentabilidadeAnual = converterParaTaxaAnual(rentabilidadeOriginal, tipoRentabilidade);
+  let rentabilidadeAnual, modoTexto, valorTexto;
   
-  const investimento = {
-    modalidade,
-    nome,
-    valor: parseFloat(valor),
-    rentabilidade: rentabilidadeOriginal,
-    tipoRentabilidade: tipoRentabilidade,
-    rentabilidadeAnual: rentabilidadeAnual, // Taxa equivalente anual para cálculos
-    data: data || new Date().toISOString().split('T')[0],
-    obs
-  };
+  if (modoRentabilidade === 'percentual') {
+    // MODO PERCENTUAL
+    const rentabilidade = document.getElementById('inv_rentabilidade').value;
+    const tipoRentabilidade = document.getElementById('inv_tipo_rentabilidade').value;
+    
+    if (!rentabilidade) {
+      showNotification('Preencha a rentabilidade!', 'error');
+      return;
+    }
+    
+    const rentabilidadeOriginal = parseFloat(rentabilidade || 0);
+    rentabilidadeAnual = converterParaTaxaAnual(rentabilidadeOriginal, tipoRentabilidade);
+    
+    modoTexto = obterTextoTipoRentabilidade(tipoRentabilidade);
+    valorTexto = rentabilidadeOriginal.toFixed(2) + '% ' + modoTexto;
+    
+    const investimento = {
+      modalidade,
+      nome,
+      valor: parseFloat(valor),
+      modoRentabilidade: 'percentual',
+      rentabilidade: rentabilidadeOriginal,
+      tipoRentabilidade: tipoRentabilidade,
+      rentabilidadeAnual: rentabilidadeAnual,
+      data: data || new Date().toISOString().split('T')[0],
+      obs
+    };
+    
+    investimentos.push(investimento);
+    
+  } else {
+    // MODO VALOR FIXO
+    const rendimentoFixo = document.getElementById('inv_rendimento_fixo').value;
+    const periodoFixo = document.getElementById('inv_periodo_fixo').value;
+    
+    if (!rendimentoFixo) {
+      showNotification('Preencha o rendimento fixo!', 'error');
+      return;
+    }
+    
+    const rendFixo = parseFloat(rendimentoFixo || 0);
+    rentabilidadeAnual = converterRendimentoFixoParaTaxaAnual(parseFloat(valor), rendFixo, periodoFixo);
+    
+    modoTexto = obterTextoPeriodoFixo(periodoFixo);
+    valorTexto = 'R$ ' + rendFixo.toFixed(2) + ' ' + modoTexto;
+    
+    const investimento = {
+      modalidade,
+      nome,
+      valor: parseFloat(valor),
+      modoRentabilidade: 'fixo',
+      rendimentoFixo: rendFixo,
+      periodoFixo: periodoFixo,
+      rentabilidadeAnual: rentabilidadeAnual,
+      data: data || new Date().toISOString().split('T')[0],
+      obs
+    };
+    
+    investimentos.push(investimento);
+  }
   
-  investimentos.push(investimento);
   salvarDados();
   renderInvestimentos();
   atualizarRendimentosInvestimentos();
@@ -1983,10 +2180,16 @@ function limparFormularioInvestimento() {
   document.getElementById('inv_modalidade').value = '';
   document.getElementById('inv_nome').value = '';
   document.getElementById('inv_valor').value = '';
+  document.getElementById('inv_modo_rentabilidade').value = 'percentual';
   document.getElementById('inv_rentabilidade').value = '';
   document.getElementById('inv_tipo_rentabilidade').value = 'anual';
+  document.getElementById('inv_rendimento_fixo').value = '';
+  document.getElementById('inv_periodo_fixo').value = 'mensal';
   document.getElementById('inv_data').value = '';
   document.getElementById('inv_obs').value = '';
+  
+  // Mostrar modo percentual por padrão
+  toggleModoRentabilidade();
 }
 
 function cancelarEdicaoInvestimento() {
@@ -2018,10 +2221,25 @@ function renderInvestimentos() {
     const rend6m = calcularRendimento(inv.valor, taxaParaCalculo, 6);
     const rend1a = calcularRendimento(inv.valor, taxaParaCalculo, 12);
     
-    // Texto da rentabilidade
-    const tipoRent = inv.tipoRentabilidade || 'anual';
-    const textoTipoRent = obterTextoTipoRentabilidade(tipoRent);
-    const rentabilidadeOriginal = inv.rentabilidade || 0;
+    // Determinar o texto a exibir com base no modo
+    let rentabilidadeTexto = '';
+    let rentabilidadeEquivalente = '';
+    
+    if (inv.modoRentabilidade === 'fixo') {
+      // MODO VALOR FIXO
+      const textoperiodo = obterTextoPeriodoFixo(inv.periodoFixo);
+      rentabilidadeTexto = `R$ ${inv.rendimentoFixo.toFixed(2)} ${textoperiodo}`;
+      rentabilidadeEquivalente = `Equiv. ${inv.rentabilidadeAnual.toFixed(2)}% a.a.`;
+    } else {
+      // MODO PERCENTUAL (padrão)
+      const tipoRent = inv.tipoRentabilidade || 'anual';
+      const textoTipoRent = obterTextoTipoRentabilidade(tipoRent);
+      const rentabilidadeOriginal = inv.rentabilidade || 0;
+      rentabilidadeTexto = `${rentabilidadeOriginal.toFixed(2)}% ${textoTipoRent}`;
+      if (inv.rentabilidadeAnual && inv.rentabilidadeAnual !== rentabilidadeOriginal) {
+        rentabilidadeEquivalente = `Equiv. ${inv.rentabilidadeAnual.toFixed(2)}% a.a.`;
+      }
+    }
     
     card.innerHTML = `
       <div class="list-card-header">
@@ -2035,8 +2253,8 @@ function renderInvestimentos() {
         </div>
         <div>
           <small style="color: rgba(255,255,255,0.6);">Rentabilidade</small>
-          <div style="font-weight: 900; font-size: 20px; color: #00ff88; font-family: 'Orbitron', sans-serif;">${rentabilidadeOriginal.toFixed(2)}% ${textoTipoRent}</div>
-          ${inv.rentabilidadeAnual ? `<small style="color: rgba(255,255,255,0.5); font-size: 11px;">Equiv. ${inv.rentabilidadeAnual.toFixed(2)}% a.a.</small>` : ''}
+          <div style="font-weight: 900; font-size: 18px; color: #00ff88; font-family: 'Orbitron', sans-serif;">${rentabilidadeTexto}</div>
+          ${rentabilidadeEquivalente ? `<small style="color: rgba(255,255,255,0.5); font-size: 11px;">${rentabilidadeEquivalente}</small>` : ''}
         </div>
         <div>
           <small style="color: rgba(255,255,255,0.6);">Data de Aplicação</small>
@@ -2082,11 +2300,21 @@ function editarInvestimento(index) {
   document.getElementById('edit_modalidade').value = inv.modalidade;
   document.getElementById('edit_nome').value = inv.nome;
   document.getElementById('edit_valor').value = inv.valor;
-  document.getElementById('edit_rentabilidade').value = inv.rentabilidade;
-  document.getElementById('edit_tipo_rentabilidade').value = inv.tipoRentabilidade || 'anual';
   document.getElementById('edit_data').value = inv.data;
   document.getElementById('edit_obs').value = inv.obs || '';
   
+  // Configurar modo e valores
+  if (inv.modoRentabilidade === 'fixo') {
+    document.getElementById('edit_modo_rentabilidade').value = 'fixo';
+    document.getElementById('edit_rendimento_fixo').value = inv.rendimentoFixo || 0;
+    document.getElementById('edit_periodo_fixo').value = inv.periodoFixo || 'mensal';
+  } else {
+    document.getElementById('edit_modo_rentabilidade').value = 'percentual';
+    document.getElementById('edit_rentabilidade').value = inv.rentabilidade || 0;
+    document.getElementById('edit_tipo_rentabilidade').value = inv.tipoRentabilidade || 'anual';
+  }
+  
+  toggleModoRentabilidadeEdit();
   document.getElementById('editModal').classList.add('active');
 }
 
@@ -2095,8 +2323,7 @@ function salvarEdicaoInvestimento() {
   const modalidade = document.getElementById('edit_modalidade').value;
   const nome = document.getElementById('edit_nome').value.trim();
   const valor = document.getElementById('edit_valor').value;
-  const rentabilidade = document.getElementById('edit_rentabilidade').value;
-  const tipoRentabilidade = document.getElementById('edit_tipo_rentabilidade').value;
+  const modoRentabilidade = document.getElementById('edit_modo_rentabilidade').value;
   const data = document.getElementById('edit_data').value;
   const obs = document.getElementById('edit_obs').value.trim();
   
@@ -2105,20 +2332,58 @@ function salvarEdicaoInvestimento() {
     return;
   }
   
-  // Converter a rentabilidade para taxa anual equivalente
-  const rentabilidadeOriginal = parseFloat(rentabilidade || 0);
-  const rentabilidadeAnual = converterParaTaxaAnual(rentabilidadeOriginal, tipoRentabilidade);
+  let rentabilidadeAnual;
   
-  investimentos[index] = {
-    modalidade,
-    nome,
-    valor: parseFloat(valor),
-    rentabilidade: rentabilidadeOriginal,
-    tipoRentabilidade: tipoRentabilidade,
-    rentabilidadeAnual: rentabilidadeAnual,
-    data: data || new Date().toISOString().split('T')[0],
-    obs
-  };
+  if (modoRentabilidade === 'percentual') {
+    // MODO PERCENTUAL
+    const rentabilidade = document.getElementById('edit_rentabilidade').value;
+    const tipoRentabilidade = document.getElementById('edit_tipo_rentabilidade').value;
+    
+    if (!rentabilidade) {
+      showNotification('Preencha a rentabilidade!', 'error');
+      return;
+    }
+    
+    const rentabilidadeOriginal = parseFloat(rentabilidade || 0);
+    rentabilidadeAnual = converterParaTaxaAnual(rentabilidadeOriginal, tipoRentabilidade);
+    
+    investimentos[index] = {
+      modalidade,
+      nome,
+      valor: parseFloat(valor),
+      modoRentabilidade: 'percentual',
+      rentabilidade: rentabilidadeOriginal,
+      tipoRentabilidade: tipoRentabilidade,
+      rentabilidadeAnual: rentabilidadeAnual,
+      data: data || new Date().toISOString().split('T')[0],
+      obs
+    };
+    
+  } else {
+    // MODO VALOR FIXO
+    const rendimentoFixo = document.getElementById('edit_rendimento_fixo').value;
+    const periodoFixo = document.getElementById('edit_periodo_fixo').value;
+    
+    if (!rendimentoFixo) {
+      showNotification('Preencha o rendimento fixo!', 'error');
+      return;
+    }
+    
+    const rendFixo = parseFloat(rendimentoFixo || 0);
+    rentabilidadeAnual = converterRendimentoFixoParaTaxaAnual(parseFloat(valor), rendFixo, periodoFixo);
+    
+    investimentos[index] = {
+      modalidade,
+      nome,
+      valor: parseFloat(valor),
+      modoRentabilidade: 'fixo',
+      rendimentoFixo: rendFixo,
+      periodoFixo: periodoFixo,
+      rentabilidadeAnual: rentabilidadeAnual,
+      data: data || new Date().toISOString().split('T')[0],
+      obs
+    };
+  }
   
   salvarDados();
   renderInvestimentos();
