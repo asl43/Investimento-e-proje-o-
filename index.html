@@ -111,143 +111,12 @@ body {
   100% { transform: translate(50px, 50px); }
 }
 
-/* TELA DE LOGIN */
-.login-container {
-  position: relative;
-  z-index: 10;
-  background: rgba(10, 14, 39, 0.95);
-  backdrop-filter: blur(20px);
-  border: 2px solid rgba(0, 212, 255, 0.3);
-  padding: 50px;
-  border-radius: 20px;
-  box-shadow: 0 20px 60px rgba(0, 212, 255, 0.3);
-  width: 90%;
-  max-width: 450px;
-  animation: slideInUp 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-}
-
-@keyframes slideInUp {
-  from {
-    opacity: 0;
-    transform: translateY(50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.login-container h2 {
-  text-align: center;
-  font-family: 'Orbitron', sans-serif;
-  font-weight: 900;
-  font-size: 36px;
-  background: var(--gradient-1);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 40px;
-  animation: glow 2s ease-in-out infinite;
-}
-
-@keyframes glow {
-  0%, 100% { filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.5)); }
-  50% { filter: drop-shadow(0 0 20px rgba(255, 0, 255, 0.5)); }
-}
-
-.form-group {
-  margin-bottom: 25px;
-  animation: fadeIn 0.5s ease-out forwards;
-  opacity: 0;
-}
-
-.form-group:nth-child(2) { animation-delay: 0.1s; }
-.form-group:nth-child(3) { animation-delay: 0.2s; }
-
-@keyframes fadeIn {
-  to {
-    opacity: 1;
-  }
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 10px;
-  color: var(--primary);
-  font-weight: 600;
-  font-size: 14px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.form-group input {
-  width: 100%;
-  padding: 15px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 2px solid rgba(0, 212, 255, 0.3);
-  border-radius: 10px;
-  font-size: 16px;
-  color: var(--light);
-  transition: all 0.3s ease;
-}
-
-.form-group input:focus {
-  outline: none;
-  border-color: var(--primary);
-  background: rgba(0, 212, 255, 0.1);
-  box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
-}
-
-.btn-entrar {
-  width: 100%;
-  padding: 18px;
-  background: var(--gradient-1);
-  color: var(--light);
-  border: none;
-  border-radius: 10px;
-  font-size: 18px;
-  font-weight: 700;
-  font-family: 'Orbitron', sans-serif;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  position: relative;
-  overflow: hidden;
-}
-
-.btn-entrar::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-  transition: left 0.5s ease;
-}
-
-.btn-entrar:hover::before {
-  left: 100%;
-}
-
-.btn-entrar:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 30px rgba(0, 212, 255, 0.5);
-}
-
 /* CONTAINER PRINCIPAL */
 .main-container {
-  display: none;
   position: relative;
   z-index: 10;
   width: 100%;
   min-height: 100vh;
-}
-
-.main-container.active {
-  display: block;
-  animation: fadeIn 0.5s ease-out;
 }
 
 /* HEADER */
@@ -266,7 +135,7 @@ body {
   max-width: 1400px;
   margin: 0 auto;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 }
 
@@ -278,36 +147,12 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  animation: glow 2s ease-in-out infinite;
 }
 
-.user-info {
-  text-align: right;
-}
-
-.user-name {
-  color: var(--primary);
-  font-weight: 700;
-  font-size: 16px;
-  margin-bottom: 8px;
-}
-
-.btn-sair {
-  background: rgba(255, 51, 102, 0.2);
-  color: var(--danger);
-  border: 2px solid var(--danger);
-  padding: 8px 20px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 14px;
-  transition: all 0.3s ease;
-}
-
-.btn-sair:hover {
-  background: var(--danger);
-  color: var(--light);
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(255, 51, 102, 0.4);
+@keyframes glow {
+  0%, 100% { filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.5)); }
+  50% { filter: drop-shadow(0 0 20px rgba(255, 0, 255, 0.5)); }
 }
 
 /* CARDS PRINCIPAIS */
@@ -440,6 +285,11 @@ body {
   justify-content: center;
   padding: 20px;
   animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .module-content {
@@ -686,6 +536,29 @@ select option {
   color: var(--light);
 }
 
+/* Campos específicos FIIs/Ações */
+.campos-especificos {
+  display: none;
+  background: rgba(123, 47, 247, 0.1);
+  border: 2px solid rgba(123, 47, 247, 0.3);
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px 0;
+}
+
+.campos-especificos.active {
+  display: block;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.campos-especificos h4 {
+  color: #7b2ff7;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  margin-bottom: 15px;
+  font-size: 16px;
+}
+
 /* BOTÕES */
 .btn-primary,
 .btn-success,
@@ -813,6 +686,16 @@ select option {
 .badge-info {
   background: var(--gradient-1);
   color: var(--light);
+}
+
+.badge-fii {
+  background: linear-gradient(135deg, #7b2ff7, #5a1fb3);
+  color: var(--light);
+}
+
+.badge-acao {
+  background: linear-gradient(135deg, #00ff88, #00cc6a);
+  color: var(--dark);
 }
 
 /* GRÁFICOS */
@@ -1014,7 +897,7 @@ select option {
   border: 2px solid rgba(0, 212, 255, 0.3);
   padding: 40px;
   border-radius: 20px;
-  max-width: 700px;
+  max-width: 900px;
   width: 90%;
   max-height: 90vh;
   overflow-y: auto;
@@ -1119,10 +1002,6 @@ select option {
     flex-direction: column;
   }
   
-  .login-container {
-    padding: 30px;
-  }
-  
   .module-body {
     padding: 20px;
   }
@@ -1189,29 +1068,11 @@ select option {
   <div class="grid-lines"></div>
 </div>
 
-<!-- TELA DE LOGIN -->
-<div class="login-container" id="loginScreen">
-  <h2>💰 FINTECH</h2>
-  <div class="form-group">
-    <label>Usuário</label>
-    <input type="text" id="username" placeholder="Digite seu usuário">
-  </div>
-  <div class="form-group">
-    <label>Senha</label>
-    <input type="password" id="password" placeholder="Digite sua senha">
-  </div>
-  <button class="btn-entrar" onclick="login()">Entrar</button>
-</div>
-
 <!-- TELA PRINCIPAL -->
-<div class="main-container" id="mainScreen">
+<div class="main-container">
   <div class="header">
     <div class="header-content">
       <h1>💰 FINTECH PREMIUM</h1>
-      <div class="user-info">
-        <div class="user-name" id="displayUsername"></div>
-        <button class="btn-sair" onclick="logout()">Sair</button>
-      </div>
     </div>
   </div>
 
@@ -1317,7 +1178,7 @@ select option {
         <div class="form-row">
           <div>
             <label>Modalidade</label>
-            <select id="inv_modalidade">
+            <select id="inv_modalidade" onchange="mostrarCamposEspecificos()">
               <option value="">Selecione...</option>
               <option value="Tesouro Direto">Tesouro Direto</option>
               <option value="CDB">CDB</option>
@@ -1331,59 +1192,128 @@ select option {
           </div>
           <div>
             <label>Nome do Ativo</label>
-            <input type="text" id="inv_nome" placeholder="Ex: PETR4, Bitcoin">
+            <input type="text" id="inv_nome" placeholder="Ex: PETR4, MXRF11, Bitcoin">
           </div>
         </div>
 
-        <div class="form-row">
-          <div>
-            <label>Valor Investido (R$)</label>
-            <input type="number" id="inv_valor" placeholder="0.00" step="0.01">
+        <!-- CAMPOS PARA FIIs -->
+        <div id="camposFIIs" class="campos-especificos">
+          <h4>🏢 Dados do FII</h4>
+          <div class="form-row">
+            <div>
+              <label>Quantidade de Cotas</label>
+              <input type="number" id="inv_fii_quantidade" placeholder="0" step="1" min="0">
+            </div>
+            <div>
+              <label>Valor da Cota (R$)</label>
+              <input type="number" id="inv_fii_valor_cota" placeholder="0.00" step="0.01" min="0">
+            </div>
           </div>
-          <div>
-            <label>Modo de Rentabilidade</label>
-            <select id="inv_modo_rentabilidade" onchange="toggleModoRentabilidade()">
-              <option value="percentual">Percentual (%)</option>
-              <option value="fixo">Valor Fixo (R$)</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- MODO PERCENTUAL -->
-        <div id="modoPercentual" class="form-row">
-          <div>
-            <label>Rentabilidade (%)</label>
-            <input type="number" id="inv_rentabilidade" placeholder="0.00" step="0.01">
-          </div>
-          <div>
-            <label>Tipo de Rentabilidade</label>
-            <select id="inv_tipo_rentabilidade">
-              <option value="diaria">Diária (% a.d.)</option>
-              <option value="mensal">Mensal (% a.m.)</option>
-              <option value="bimestral">Bimestral (% a.b.)</option>
-              <option value="trimestral">Trimestral (% a.t.)</option>
-              <option value="semestral">Semestral (% a.s.)</option>
-              <option value="anual" selected>Anual (% a.a.)</option>
-            </select>
+          <div class="form-row">
+            <div>
+              <label>Provento por Cota (R$)</label>
+              <input type="number" id="inv_fii_provento" placeholder="0.00" step="0.01" min="0">
+            </div>
+            <div>
+              <label>Período do Provento</label>
+              <select id="inv_fii_periodo">
+                <option value="mensal" selected>Mensal</option>
+                <option value="bimestral">Bimestral (2 meses)</option>
+                <option value="trimestral">Trimestral (3 meses)</option>
+                <option value="semestral">Semestral (6 meses)</option>
+                <option value="anual">Anual</option>
+              </select>
+            </div>
           </div>
         </div>
 
-        <!-- MODO VALOR FIXO -->
-        <div id="modoFixo" class="form-row" style="display: none;">
-          <div>
-            <label>Rendimento Fixo (R$)</label>
-            <input type="number" id="inv_rendimento_fixo" placeholder="0.00" step="0.01">
+        <!-- CAMPOS PARA AÇÕES -->
+        <div id="camposAcoes" class="campos-especificos">
+          <h4>📊 Dados da Ação</h4>
+          <div class="form-row">
+            <div>
+              <label>Quantidade de Ações</label>
+              <input type="number" id="inv_acao_quantidade" placeholder="0" step="1" min="0">
+            </div>
+            <div>
+              <label>Preço Médio (R$)</label>
+              <input type="number" id="inv_acao_preco_medio" placeholder="0.00" step="0.01" min="0">
+            </div>
+            <div>
+              <label>Preço Atual (R$) - Opcional</label>
+              <input type="number" id="inv_acao_preco_atual" placeholder="0.00" step="0.01" min="0">
+            </div>
           </div>
-          <div>
-            <label>Período do Rendimento</label>
-            <select id="inv_periodo_fixo">
-              <option value="diario">Por Dia</option>
-              <option value="mensal" selected>Por Mês</option>
-              <option value="bimestral">Por Bimestre (2 meses)</option>
-              <option value="trimestral">Por Trimestre (3 meses)</option>
-              <option value="semestral">Por Semestre (6 meses)</option>
-              <option value="anual">Por Ano</option>
-            </select>
+          <div class="form-row">
+            <div>
+              <label>Dividendo por Ação (R$)</label>
+              <input type="number" id="inv_acao_dividendo" placeholder="0.00" step="0.01" min="0">
+            </div>
+            <div>
+              <label>Período do Dividendo</label>
+              <select id="inv_acao_periodo">
+                <option value="mensal">Mensal</option>
+                <option value="bimestral">Bimestral (2 meses)</option>
+                <option value="trimestral">Trimestral (3 meses)</option>
+                <option value="semestral" selected>Semestral (6 meses)</option>
+                <option value="anual">Anual</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- CAMPOS PADRÃO (para outros tipos de investimento) -->
+        <div id="camposPadrao">
+          <div class="form-row">
+            <div>
+              <label>Valor Investido (R$)</label>
+              <input type="number" id="inv_valor" placeholder="0.00" step="0.01">
+            </div>
+            <div>
+              <label>Modo de Rentabilidade</label>
+              <select id="inv_modo_rentabilidade" onchange="toggleModoRentabilidade()">
+                <option value="percentual">Percentual (%)</option>
+                <option value="fixo">Valor Fixo (R$)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- MODO PERCENTUAL -->
+          <div id="modoPercentual" class="form-row">
+            <div>
+              <label>Rentabilidade (%)</label>
+              <input type="number" id="inv_rentabilidade" placeholder="0.00" step="0.01">
+            </div>
+            <div>
+              <label>Tipo de Rentabilidade</label>
+              <select id="inv_tipo_rentabilidade">
+                <option value="diaria">Diária (% a.d.)</option>
+                <option value="mensal">Mensal (% a.m.)</option>
+                <option value="bimestral">Bimestral (% a.b.)</option>
+                <option value="trimestral">Trimestral (% a.t.)</option>
+                <option value="semestral">Semestral (% a.s.)</option>
+                <option value="anual" selected>Anual (% a.a.)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- MODO VALOR FIXO -->
+          <div id="modoFixo" class="form-row" style="display: none;">
+            <div>
+              <label>Rendimento Fixo (R$)</label>
+              <input type="number" id="inv_rendimento_fixo" placeholder="0.00" step="0.01">
+            </div>
+            <div>
+              <label>Período do Rendimento</label>
+              <select id="inv_periodo_fixo">
+                <option value="diario">Por Dia</option>
+                <option value="mensal" selected>Por Mês</option>
+                <option value="bimestral">Por Bimestre (2 meses)</option>
+                <option value="trimestral">Por Trimestre (3 meses)</option>
+                <option value="semestral">Por Semestre (6 meses)</option>
+                <option value="anual">Por Ano</option>
+              </select>
+            </div>
           </div>
         </div>
 
@@ -1553,16 +1483,6 @@ select option {
       </div>
 
       <div class="form-section">
-        <h3>🔐 Alterar Senha</h3>
-        <div class="form-row">
-          <div>
-            <input type="password" id="nova_senha" placeholder="Digite a nova senha">
-          </div>
-        </div>
-        <button class="btn-primary" onclick="alterarSenha()">Salvar Nova Senha</button>
-      </div>
-
-      <div class="form-section">
         <h3>📤 Exportar / Importar Dados</h3>
         <div class="action-buttons">
           <button class="btn-export" onclick="exportarDados()">📥 Exportar Dados</button>
@@ -1590,10 +1510,11 @@ select option {
       <button class="btn-close" onclick="fecharModalEdicao()">×</button>
     </div>
     <input type="hidden" id="edit_index">
+    
     <div class="form-row">
       <div>
         <label>Modalidade</label>
-        <select id="edit_modalidade">
+        <select id="edit_modalidade" onchange="mostrarCamposEspecificosEdit()">
           <option value="">Selecione...</option>
           <option value="Tesouro Direto">Tesouro Direto</option>
           <option value="CDB">CDB</option>
@@ -1610,55 +1531,125 @@ select option {
         <input type="text" id="edit_nome">
       </div>
     </div>
-    <div class="form-row">
-      <div>
-        <label>Valor Investido (R$)</label>
-        <input type="number" id="edit_valor" step="0.01">
+
+    <!-- CAMPOS PARA FIIs - EDIÇÃO -->
+    <div id="editCamposFIIs" class="campos-especificos">
+      <h4>🏢 Dados do FII</h4>
+      <div class="form-row">
+        <div>
+          <label>Quantidade de Cotas</label>
+          <input type="number" id="edit_fii_quantidade" step="1" min="0">
+        </div>
+        <div>
+          <label>Valor da Cota (R$)</label>
+          <input type="number" id="edit_fii_valor_cota" step="0.01" min="0">
+        </div>
       </div>
-      <div>
-        <label>Modo de Rentabilidade</label>
-        <select id="edit_modo_rentabilidade" onchange="toggleModoRentabilidadeEdit()">
-          <option value="percentual">Percentual (%)</option>
-          <option value="fixo">Valor Fixo (R$)</option>
-        </select>
+      <div class="form-row">
+        <div>
+          <label>Provento por Cota (R$)</label>
+          <input type="number" id="edit_fii_provento" step="0.01" min="0">
+        </div>
+        <div>
+          <label>Período do Provento</label>
+          <select id="edit_fii_periodo">
+            <option value="mensal">Mensal</option>
+            <option value="bimestral">Bimestral (2 meses)</option>
+            <option value="trimestral">Trimestral (3 meses)</option>
+            <option value="semestral">Semestral (6 meses)</option>
+            <option value="anual">Anual</option>
+          </select>
+        </div>
       </div>
     </div>
 
-    <!-- MODO PERCENTUAL -->
-    <div id="editModoPercentual" class="form-row">
-      <div>
-        <label>Rentabilidade (%)</label>
-        <input type="number" id="edit_rentabilidade" step="0.01">
+    <!-- CAMPOS PARA AÇÕES - EDIÇÃO -->
+    <div id="editCamposAcoes" class="campos-especificos">
+      <h4>📊 Dados da Ação</h4>
+      <div class="form-row">
+        <div>
+          <label>Quantidade de Ações</label>
+          <input type="number" id="edit_acao_quantidade" step="1" min="0">
+        </div>
+        <div>
+          <label>Preço Médio (R$)</label>
+          <input type="number" id="edit_acao_preco_medio" step="0.01" min="0">
+        </div>
+        <div>
+          <label>Preço Atual (R$) - Opcional</label>
+          <input type="number" id="edit_acao_preco_atual" step="0.01" min="0">
+        </div>
       </div>
-      <div>
-        <label>Tipo de Rentabilidade</label>
-        <select id="edit_tipo_rentabilidade">
-          <option value="diaria">Diária (% a.d.)</option>
-          <option value="mensal">Mensal (% a.m.)</option>
-          <option value="bimestral">Bimestral (% a.b.)</option>
-          <option value="trimestral">Trimestral (% a.t.)</option>
-          <option value="semestral">Semestral (% a.s.)</option>
-          <option value="anual">Anual (% a.a.)</option>
-        </select>
+      <div class="form-row">
+        <div>
+          <label>Dividendo por Ação (R$)</label>
+          <input type="number" id="edit_acao_dividendo" step="0.01" min="0">
+        </div>
+        <div>
+          <label>Período do Dividendo</label>
+          <select id="edit_acao_periodo">
+            <option value="mensal">Mensal</option>
+            <option value="bimestral">Bimestral (2 meses)</option>
+            <option value="trimestral">Trimestral (3 meses)</option>
+            <option value="semestral">Semestral (6 meses)</option>
+            <option value="anual">Anual</option>
+          </select>
+        </div>
       </div>
     </div>
 
-    <!-- MODO VALOR FIXO -->
-    <div id="editModoFixo" class="form-row" style="display: none;">
-      <div>
-        <label>Rendimento Fixo (R$)</label>
-        <input type="number" id="edit_rendimento_fixo" step="0.01">
+    <!-- CAMPOS PADRÃO - EDIÇÃO -->
+    <div id="editCamposPadrao">
+      <div class="form-row">
+        <div>
+          <label>Valor Investido (R$)</label>
+          <input type="number" id="edit_valor" step="0.01">
+        </div>
+        <div>
+          <label>Modo de Rentabilidade</label>
+          <select id="edit_modo_rentabilidade" onchange="toggleModoRentabilidadeEdit()">
+            <option value="percentual">Percentual (%)</option>
+            <option value="fixo">Valor Fixo (R$)</option>
+          </select>
+        </div>
       </div>
-      <div>
-        <label>Período do Rendimento</label>
-        <select id="edit_periodo_fixo">
-          <option value="diario">Por Dia</option>
-          <option value="mensal">Por Mês</option>
-          <option value="bimestral">Por Bimestre (2 meses)</option>
-          <option value="trimestral">Por Trimestre (3 meses)</option>
-          <option value="semestral">Por Semestre (6 meses)</option>
-          <option value="anual">Por Ano</option>
-        </select>
+
+      <!-- MODO PERCENTUAL - EDIÇÃO -->
+      <div id="editModoPercentual" class="form-row">
+        <div>
+          <label>Rentabilidade (%)</label>
+          <input type="number" id="edit_rentabilidade" step="0.01">
+        </div>
+        <div>
+          <label>Tipo de Rentabilidade</label>
+          <select id="edit_tipo_rentabilidade">
+            <option value="diaria">Diária (% a.d.)</option>
+            <option value="mensal">Mensal (% a.m.)</option>
+            <option value="bimestral">Bimestral (% a.b.)</option>
+            <option value="trimestral">Trimestral (% a.t.)</option>
+            <option value="semestral">Semestral (% a.s.)</option>
+            <option value="anual">Anual (% a.a.)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- MODO VALOR FIXO - EDIÇÃO -->
+      <div id="editModoFixo" class="form-row" style="display: none;">
+        <div>
+          <label>Rendimento Fixo (R$)</label>
+          <input type="number" id="edit_rendimento_fixo" step="0.01">
+        </div>
+        <div>
+          <label>Período do Rendimento</label>
+          <select id="edit_periodo_fixo">
+            <option value="diario">Por Dia</option>
+            <option value="mensal">Por Mês</option>
+            <option value="bimestral">Por Bimestre (2 meses)</option>
+            <option value="trimestral">Por Trimestre (3 meses)</option>
+            <option value="semestral">Por Semestre (6 meses)</option>
+            <option value="anual">Por Ano</option>
+          </select>
+        </div>
       </div>
     </div>
 
@@ -1683,60 +1674,18 @@ select option {
 
 <script>
 // ==================== VARIÁVEIS GLOBAIS ====================
-let currentUser = null;
 let investimentos = [];
 let dashboardChartInstance = null;
 let projectionChartInstance = null;
 let sheetsConnected = false;
 let sheetsUrl = '';
 
-// ==================== AUTENTICAÇÃO ====================
-function login() {
-  const username = document.getElementById('username').value.trim();
-  const password = document.getElementById('password').value;
-
-  if (!username || !password) {
-    showNotification('Preencha usuário e senha!', 'error');
-    return;
-  }
-
-  const users = JSON.parse(localStorage.getItem('users') || '{}');
-
-  if (users[username] && users[username] === password) {
-    currentUser = username;
-    localStorage.setItem('currentUser', username);
-    showMainScreen();
-  } else if (!users[username]) {
-    if (confirm('Usuário não encontrado. Deseja criar uma nova conta?')) {
-      users[username] = password;
-      localStorage.setItem('users', JSON.stringify(users));
-      currentUser = username;
-      localStorage.setItem('currentUser', username);
-      showMainScreen();
-    }
-  } else {
-    showNotification('Senha incorreta!', 'error');
-  }
-}
-
-function logout() {
-  if (confirm('Deseja realmente sair?')) {
-    currentUser = null;
-    localStorage.removeItem('currentUser');
-    document.getElementById('loginScreen').style.display = 'block';
-    document.getElementById('mainScreen').classList.remove('active');
-    document.getElementById('username').value = '';
-    document.getElementById('password').value = '';
-  }
-}
-
-function showMainScreen() {
-  document.getElementById('loginScreen').style.display = 'none';
-  document.getElementById('mainScreen').classList.add('active');
-  document.getElementById('displayUsername').textContent = `${currentUser}`;
+// ==================== INICIALIZAÇÃO ====================
+window.onload = function() {
   carregarDados();
   carregarConfigSheets();
-}
+  document.getElementById('inv_data').valueAsDate = new Date();
+};
 
 // ==================== NOTIFICAÇÕES ====================
 function showNotification(message, type = 'success') {
@@ -1753,17 +1702,14 @@ function showNotification(message, type = 'success') {
 
 // ==================== GERENCIAMENTO DE DADOS ====================
 function carregarDados() {
-  const key = `dados_${currentUser}`;
-  const dados = JSON.parse(localStorage.getItem(key) || '{}');
+  const dados = JSON.parse(localStorage.getItem('sistema_financeiro') || '{}');
   investimentos = dados.investimentos || [];
 }
 
 function salvarDados() {
-  const key = `dados_${currentUser}`;
   const dados = { investimentos };
-  localStorage.setItem(key, JSON.stringify(dados));
+  localStorage.setItem('sistema_financeiro', JSON.stringify(dados));
   
-  // Auto-sincronizar se conectado ao Sheets
   if (sheetsConnected) {
     sincronizarDados();
   }
@@ -1774,10 +1720,6 @@ function displayCurrency(value) {
 }
 
 // ==================== MODO DE RENTABILIDADE ====================
-
-/**
- * Alterna entre modo percentual e valor fixo no formulário principal
- */
 function toggleModoRentabilidade() {
   const modo = document.getElementById('inv_modo_rentabilidade').value;
   const modoPercentual = document.getElementById('modoPercentual');
@@ -1792,9 +1734,6 @@ function toggleModoRentabilidade() {
   }
 }
 
-/**
- * Alterna entre modo percentual e valor fixo no modal de edição
- */
 function toggleModoRentabilidadeEdit() {
   const modo = document.getElementById('edit_modo_rentabilidade').value;
   const modoPercentual = document.getElementById('editModoPercentual');
@@ -1809,83 +1748,124 @@ function toggleModoRentabilidadeEdit() {
   }
 }
 
-// ==================== CONVERSÃO DE RENTABILIDADE ====================
+// ==================== CAMPOS ESPECÍFICOS ====================
+function mostrarCamposEspecificos() {
+  const modalidade = document.getElementById('inv_modalidade').value;
+  const camposFIIs = document.getElementById('camposFIIs');
+  const camposAcoes = document.getElementById('camposAcoes');
+  const camposPadrao = document.getElementById('camposPadrao');
+  
+  camposFIIs.classList.remove('active');
+  camposAcoes.classList.remove('active');
+  camposPadrao.style.display = 'block';
+  
+  if (modalidade === 'FIIs') {
+    camposFIIs.classList.add('active');
+    camposPadrao.style.display = 'none';
+  } else if (modalidade === 'Ações') {
+    camposAcoes.classList.add('active');
+    camposPadrao.style.display = 'none';
+  }
+}
 
-/**
- * Converte qualquer tipo de rentabilidade para taxa anual equivalente
- */
+function mostrarCamposEspecificosEdit() {
+  const modalidade = document.getElementById('edit_modalidade').value;
+  const camposFIIs = document.getElementById('editCamposFIIs');
+  const camposAcoes = document.getElementById('editCamposAcoes');
+  const camposPadrao = document.getElementById('editCamposPadrao');
+  
+  camposFIIs.classList.remove('active');
+  camposAcoes.classList.remove('active');
+  camposPadrao.style.display = 'block';
+  
+  if (modalidade === 'FIIs') {
+    camposFIIs.classList.add('active');
+    camposPadrao.style.display = 'none';
+  } else if (modalidade === 'Ações') {
+    camposAcoes.classList.add('active');
+    camposPadrao.style.display = 'none';
+  }
+}
+
+// ==================== CONVERSÃO DE RENTABILIDADE ====================
 function converterParaTaxaAnual(taxa, tipo) {
   taxa = parseFloat(taxa) || 0;
   
   switch(tipo) {
     case 'diaria':
-      // (1 + taxa_diaria)^365 - 1
       return (Math.pow(1 + taxa / 100, 365) - 1) * 100;
-    
     case 'mensal':
-      // (1 + taxa_mensal)^12 - 1
       return (Math.pow(1 + taxa / 100, 12) - 1) * 100;
-    
     case 'bimestral':
-      // (1 + taxa_bimestral)^6 - 1
       return (Math.pow(1 + taxa / 100, 6) - 1) * 100;
-    
     case 'trimestral':
-      // (1 + taxa_trimestral)^4 - 1
       return (Math.pow(1 + taxa / 100, 4) - 1) * 100;
-    
     case 'semestral':
-      // (1 + taxa_semestral)^2 - 1
       return (Math.pow(1 + taxa / 100, 2) - 1) * 100;
-    
     case 'anual':
     default:
       return taxa;
   }
 }
 
-/**
- * Converte rendimento fixo para taxa anual equivalente
- */
 function converterRendimentoFixoParaTaxaAnual(valorInvestido, rendimentoFixo, periodo) {
   const valor = parseFloat(valorInvestido) || 0;
   const rendimento = parseFloat(rendimentoFixo) || 0;
   
   if (valor === 0) return 0;
   
-  // Calcular quantos períodos existem em um ano
   let periodosPorAno = 1;
   switch(periodo) {
-    case 'diario':
-      periodosPorAno = 365;
-      break;
-    case 'mensal':
-      periodosPorAno = 12;
-      break;
-    case 'bimestral':
-      periodosPorAno = 6;
-      break;
-    case 'trimestral':
-      periodosPorAno = 4;
-      break;
-    case 'semestral':
-      periodosPorAno = 2;
-      break;
-    case 'anual':
-      periodosPorAno = 1;
-      break;
+    case 'diario': periodosPorAno = 365; break;
+    case 'mensal': periodosPorAno = 12; break;
+    case 'bimestral': periodosPorAno = 6; break;
+    case 'trimestral': periodosPorAno = 4; break;
+    case 'semestral': periodosPorAno = 2; break;
+    case 'anual': periodosPorAno = 1; break;
   }
   
-  // Rendimento total anual
   const rendimentoAnual = rendimento * periodosPorAno;
-  
-  // Taxa percentual anual equivalente
   return (rendimentoAnual / valor) * 100;
 }
 
-/**
- * Retorna o texto formatado do tipo de rentabilidade
- */
+function calcularTaxaAnualFII(valorCota, proventoCota, periodoProvento) {
+  const valorCotas = parseFloat(valorCota) || 0;
+  const provento = parseFloat(proventoCota) || 0;
+  
+  if (valorCotas === 0) return 0;
+  
+  let periodosPorAno = 12;
+  switch(periodoProvento) {
+    case 'mensal': periodosPorAno = 12; break;
+    case 'bimestral': periodosPorAno = 6; break;
+    case 'trimestral': periodosPorAno = 4; break;
+    case 'semestral': periodosPorAno = 2; break;
+    case 'anual': periodosPorAno = 1; break;
+  }
+  
+  const proventoAnual = provento * periodosPorAno;
+  return (proventoAnual / valorCotas) * 100;
+}
+
+function calcularTaxaAnualAcao(precoMedio, dividendoAcao, periodoDividendo) {
+  const preco = parseFloat(precoMedio) || 0;
+  const dividendo = parseFloat(dividendoAcao) || 0;
+  
+  if (preco === 0) return 0;
+  
+  let periodosPorAno = 1;
+  switch(periodoDividendo) {
+    case 'mensal': periodosPorAno = 12; break;
+    case 'bimestral': periodosPorAno = 6; break;
+    case 'trimestral': periodosPorAno = 4; break;
+    case 'semestral': periodosPorAno = 2; break;
+    case 'anual': periodosPorAno = 1; break;
+  }
+  
+  const dividendoAnual = dividendo * periodosPorAno;
+  return (dividendoAnual / preco) * 100;
+}
+
 function obterTextoTipoRentabilidade(tipo) {
   const tipos = {
     'diaria': 'a.d.',
@@ -1898,9 +1878,6 @@ function obterTextoTipoRentabilidade(tipo) {
   return tipos[tipo] || 'a.a.';
 }
 
-/**
- * Retorna o texto formatado do período de rendimento fixo
- */
 function obterTextoPeriodoFixo(periodo) {
   const periodos = {
     'diario': 'por dia',
@@ -1930,7 +1907,6 @@ function calcularRendimentosPorPeriodo() {
   
   investimentos.forEach(inv => {
     const valor = parseFloat(inv.valor || 0);
-    // Usar rentabilidadeAnual se existir, senão assume que é anual
     const taxa = inv.rentabilidadeAnual !== undefined ? inv.rentabilidadeAnual : parseFloat(inv.rentabilidade || 0);
     
     rendimentos['1m'] += calcularRendimento(valor, taxa, 1);
@@ -1940,25 +1916,6 @@ function calcularRendimentosPorPeriodo() {
   });
   
   return rendimentos;
-}
-
-function calcularRendimentosPorCategoria(meses) {
-  const porCategoria = {};
-  
-  investimentos.forEach(inv => {
-    const modalidade = inv.modalidade || 'Outro';
-    const valor = parseFloat(inv.valor || 0);
-    // Usar rentabilidadeAnual se existir, senão assume que é anual
-    const taxa = inv.rentabilidadeAnual !== undefined ? inv.rentabilidadeAnual : parseFloat(inv.rentabilidade || 0);
-    const rendimento = calcularRendimento(valor, taxa, meses);
-    
-    if (!porCategoria[modalidade]) {
-      porCategoria[modalidade] = 0;
-    }
-    porCategoria[modalidade] += rendimento;
-  });
-  
-  return porCategoria;
 }
 
 // ==================== MÓDULOS ====================
@@ -2003,7 +1960,6 @@ function atualizarDashboard() {
   document.getElementById('dashRendaFixa').textContent = 'R$ ' + displayCurrency(rendaFixa);
   document.getElementById('dashRendaVariavel').textContent = 'R$ ' + displayCurrency(rendaVariavel);
   
-  // Atualizar rendimentos
   const rendimentos = calcularRendimentosPorPeriodo();
   document.getElementById('rendimento1m').textContent = 'R$ ' + displayCurrency(rendimentos['1m']);
   document.getElementById('rendimento3m').textContent = 'R$ ' + displayCurrency(rendimentos['3m']);
@@ -2096,79 +2052,116 @@ function atualizarRendimentosInvestimentos() {
 function salvarInvestimento() {
   const modalidade = document.getElementById('inv_modalidade').value;
   const nome = document.getElementById('inv_nome').value.trim();
-  const valor = document.getElementById('inv_valor').value;
-  const modoRentabilidade = document.getElementById('inv_modo_rentabilidade').value;
   const data = document.getElementById('inv_data').value;
   const obs = document.getElementById('inv_obs').value.trim();
   
-  if (!modalidade || !nome || !valor) {
+  if (!modalidade || !nome) {
     showNotification('Preencha os campos obrigatórios!', 'error');
     return;
   }
   
-  let rentabilidadeAnual, modoTexto, valorTexto;
+  let investimento = {
+    modalidade,
+    nome,
+    data: data || new Date().toISOString().split('T')[0],
+    obs
+  };
   
-  if (modoRentabilidade === 'percentual') {
-    // MODO PERCENTUAL
-    const rentabilidade = document.getElementById('inv_rentabilidade').value;
-    const tipoRentabilidade = document.getElementById('inv_tipo_rentabilidade').value;
+  if (modalidade === 'FIIs') {
+    const quantidade = parseFloat(document.getElementById('inv_fii_quantidade').value);
+    const valorCota = parseFloat(document.getElementById('inv_fii_valor_cota').value);
+    const proventoCota = parseFloat(document.getElementById('inv_fii_provento').value) || 0;
+    const periodoProvento = document.getElementById('inv_fii_periodo').value;
     
-    if (!rentabilidade) {
-      showNotification('Preencha a rentabilidade!', 'error');
+    if (!quantidade || !valorCota) {
+      showNotification('Preencha quantidade e valor da cota!', 'error');
       return;
     }
     
-    const rentabilidadeOriginal = parseFloat(rentabilidade || 0);
-    rentabilidadeAnual = converterParaTaxaAnual(rentabilidadeOriginal, tipoRentabilidade);
+    const valorTotal = quantidade * valorCota;
+    const taxaAnual = calcularTaxaAnualFII(valorCota, proventoCota, periodoProvento);
     
-    modoTexto = obterTextoTipoRentabilidade(tipoRentabilidade);
-    valorTexto = rentabilidadeOriginal.toFixed(2) + '% ' + modoTexto;
-    
-    const investimento = {
-      modalidade,
-      nome,
-      valor: parseFloat(valor),
-      modoRentabilidade: 'percentual',
-      rentabilidade: rentabilidadeOriginal,
-      tipoRentabilidade: tipoRentabilidade,
-      rentabilidadeAnual: rentabilidadeAnual,
-      data: data || new Date().toISOString().split('T')[0],
-      obs
+    investimento.valor = valorTotal;
+    investimento.rentabilidadeAnual = taxaAnual;
+    investimento.fii = {
+      quantidade,
+      valorCota,
+      proventoCota,
+      periodoProvento
     };
     
-    investimentos.push(investimento);
+  } else if (modalidade === 'Ações') {
+    const quantidade = parseFloat(document.getElementById('inv_acao_quantidade').value);
+    const precoMedio = parseFloat(document.getElementById('inv_acao_preco_medio').value);
+    const precoAtual = parseFloat(document.getElementById('inv_acao_preco_atual').value) || 0;
+    const dividendoAcao = parseFloat(document.getElementById('inv_acao_dividendo').value) || 0;
+    const periodoDividendo = document.getElementById('inv_acao_periodo').value;
+    
+    if (!quantidade || !precoMedio) {
+      showNotification('Preencha quantidade e preço médio!', 'error');
+      return;
+    }
+    
+    const valorTotal = quantidade * precoMedio;
+    const taxaAnual = calcularTaxaAnualAcao(precoMedio, dividendoAcao, periodoDividendo);
+    
+    investimento.valor = valorTotal;
+    investimento.rentabilidadeAnual = taxaAnual;
+    investimento.acao = {
+      quantidade,
+      precoMedio,
+      precoAtual,
+      dividendoAcao,
+      periodoDividendo
+    };
     
   } else {
-    // MODO VALOR FIXO
-    const rendimentoFixo = document.getElementById('inv_rendimento_fixo').value;
-    const periodoFixo = document.getElementById('inv_periodo_fixo').value;
+    const valor = document.getElementById('inv_valor').value;
+    const modoRentabilidade = document.getElementById('inv_modo_rentabilidade').value;
     
-    if (!rendimentoFixo) {
-      showNotification('Preencha o rendimento fixo!', 'error');
+    if (!valor) {
+      showNotification('Preencha o valor investido!', 'error');
       return;
     }
     
-    const rendFixo = parseFloat(rendimentoFixo || 0);
-    rentabilidadeAnual = converterRendimentoFixoParaTaxaAnual(parseFloat(valor), rendFixo, periodoFixo);
+    investimento.valor = parseFloat(valor);
+    investimento.modoRentabilidade = modoRentabilidade;
     
-    modoTexto = obterTextoPeriodoFixo(periodoFixo);
-    valorTexto = 'R$ ' + rendFixo.toFixed(2) + ' ' + modoTexto;
-    
-    const investimento = {
-      modalidade,
-      nome,
-      valor: parseFloat(valor),
-      modoRentabilidade: 'fixo',
-      rendimentoFixo: rendFixo,
-      periodoFixo: periodoFixo,
-      rentabilidadeAnual: rentabilidadeAnual,
-      data: data || new Date().toISOString().split('T')[0],
-      obs
-    };
-    
-    investimentos.push(investimento);
+    if (modoRentabilidade === 'percentual') {
+      const rentabilidade = document.getElementById('inv_rentabilidade').value;
+      const tipoRentabilidade = document.getElementById('inv_tipo_rentabilidade').value;
+      
+      if (!rentabilidade) {
+        showNotification('Preencha a rentabilidade!', 'error');
+        return;
+      }
+      
+      const rentabilidadeOriginal = parseFloat(rentabilidade || 0);
+      const rentabilidadeAnual = converterParaTaxaAnual(rentabilidadeOriginal, tipoRentabilidade);
+      
+      investimento.rentabilidade = rentabilidadeOriginal;
+      investimento.tipoRentabilidade = tipoRentabilidade;
+      investimento.rentabilidadeAnual = rentabilidadeAnual;
+      
+    } else {
+      const rendimentoFixo = document.getElementById('inv_rendimento_fixo').value;
+      const periodoFixo = document.getElementById('inv_periodo_fixo').value;
+      
+      if (!rendimentoFixo) {
+        showNotification('Preencha o rendimento fixo!', 'error');
+        return;
+      }
+      
+      const rendFixo = parseFloat(rendimentoFixo || 0);
+      const rentabilidadeAnual = converterRendimentoFixoParaTaxaAnual(parseFloat(valor), rendFixo, periodoFixo);
+      
+      investimento.rendimentoFixo = rendFixo;
+      investimento.periodoFixo = periodoFixo;
+      investimento.rentabilidadeAnual = rentabilidadeAnual;
+    }
   }
   
+  investimentos.push(investimento);
   salvarDados();
   renderInvestimentos();
   atualizarRendimentosInvestimentos();
@@ -2188,7 +2181,18 @@ function limparFormularioInvestimento() {
   document.getElementById('inv_data').value = '';
   document.getElementById('inv_obs').value = '';
   
-  // Mostrar modo percentual por padrão
+  document.getElementById('inv_fii_quantidade').value = '';
+  document.getElementById('inv_fii_valor_cota').value = '';
+  document.getElementById('inv_fii_provento').value = '';
+  document.getElementById('inv_fii_periodo').value = 'mensal';
+  
+  document.getElementById('inv_acao_quantidade').value = '';
+  document.getElementById('inv_acao_preco_medio').value = '';
+  document.getElementById('inv_acao_preco_atual').value = '';
+  document.getElementById('inv_acao_dividendo').value = '';
+  document.getElementById('inv_acao_periodo').value = 'semestral';
+  
+  mostrarCamposEspecificos();
   toggleModoRentabilidade();
 }
 
@@ -2211,27 +2215,119 @@ function renderInvestimentos() {
     card.style.animationDelay = (index * 0.1) + 's';
     
     const dataFormatada = new Date(inv.data).toLocaleDateString('pt-BR');
-    
-    // Usar rentabilidadeAnual se existir, senão usa a rentabilidade original
     const taxaParaCalculo = inv.rentabilidadeAnual !== undefined ? inv.rentabilidadeAnual : parseFloat(inv.rentabilidade || 0);
     
-    // Calcular rendimentos para este investimento específico
     const rend1m = calcularRendimento(inv.valor, taxaParaCalculo, 1);
     const rend3m = calcularRendimento(inv.valor, taxaParaCalculo, 3);
     const rend6m = calcularRendimento(inv.valor, taxaParaCalculo, 6);
     const rend1a = calcularRendimento(inv.valor, taxaParaCalculo, 12);
     
-    // Determinar o texto a exibir com base no modo
+    let badgeClass = 'badge-info';
+    if (inv.modalidade === 'FIIs') badgeClass = 'badge-fii';
+    if (inv.modalidade === 'Ações') badgeClass = 'badge-acao';
+    
+    let detalhesEspecificos = '';
+    
+    if (inv.modalidade === 'FIIs' && inv.fii) {
+      const fii = inv.fii;
+      const proventoTotal = fii.proventoCota * fii.quantidade;
+      const dy = fii.valorCota > 0 ? (fii.proventoCota * 12 / fii.valorCota) * 100 : 0;
+      
+      detalhesEspecificos = `
+        <div style="background: rgba(123, 47, 247, 0.1); padding: 15px; border-radius: 10px; margin: 15px 0;">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px;">
+            <div>
+              <small style="color: rgba(255,255,255,0.6);">Quantidade</small>
+              <div style="font-weight: 700; color: #7b2ff7;">${fii.quantidade} cotas</div>
+            </div>
+            <div>
+              <small style="color: rgba(255,255,255,0.6);">Valor/Cota</small>
+              <div style="font-weight: 700; color: #7b2ff7;">R$ ${displayCurrency(fii.valorCota)}</div>
+            </div>
+            <div>
+              <small style="color: rgba(255,255,255,0.6);">Provento/Cota</small>
+              <div style="font-weight: 700; color: #00ff88;">R$ ${displayCurrency(fii.proventoCota)}</div>
+            </div>
+            <div>
+              <small style="color: rgba(255,255,255,0.6);">Provento Total</small>
+              <div style="font-weight: 700; color: #00ff88;">R$ ${displayCurrency(proventoTotal)}</div>
+            </div>
+            <div>
+              <small style="color: rgba(255,255,255,0.6);">DY Estimado</small>
+              <div style="font-weight: 700; color: #ffbb00;">${dy.toFixed(2)}%</div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+    
+    if (inv.modalidade === 'Ações' && inv.acao) {
+      const acao = inv.acao;
+      const valorAtual = acao.precoAtual > 0 ? acao.quantidade * acao.precoAtual : inv.valor;
+      const valorizacao = acao.precoAtual > 0 ? ((acao.precoAtual - acao.precoMedio) / acao.precoMedio) * 100 : 0;
+      const lucro = valorAtual - inv.valor;
+      const dividendoTotal = acao.dividendoAcao * acao.quantidade;
+      const dy = acao.precoMedio > 0 ? (acao.dividendoAcao / acao.precoMedio) * 100 : 0;
+      
+      const corLucro = lucro >= 0 ? '#00ff88' : '#ff3366';
+      const simboloLucro = lucro >= 0 ? '+' : '';
+      
+      detalhesEspecificos = `
+        <div style="background: rgba(0, 255, 136, 0.1); padding: 15px; border-radius: 10px; margin: 15px 0;">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px;">
+            <div>
+              <small style="color: rgba(255,255,255,0.6);">Quantidade</small>
+              <div style="font-weight: 700; color: #00ff88;">${acao.quantidade} ações</div>
+            </div>
+            <div>
+              <small style="color: rgba(255,255,255,0.6);">Preço Médio</small>
+              <div style="font-weight: 700; color: #00ff88;">R$ ${displayCurrency(acao.precoMedio)}</div>
+            </div>
+            ${acao.precoAtual > 0 ? `
+            <div>
+              <small style="color: rgba(255,255,255,0.6);">Preço Atual</small>
+              <div style="font-weight: 700; color: #00d4ff;">R$ ${displayCurrency(acao.precoAtual)}</div>
+            </div>
+            <div>
+              <small style="color: rgba(255,255,255,0.6);">Valorização</small>
+              <div style="font-weight: 900; color: ${corLucro}; font-family: 'Orbitron', sans-serif;">${simboloLucro}${valorizacao.toFixed(2)}%</div>
+            </div>
+            <div>
+              <small style="color: rgba(255,255,255,0.6);">Lucro/Prejuízo</small>
+              <div style="font-weight: 900; color: ${corLucro}; font-family: 'Orbitron', sans-serif;">${simboloLucro}R$ ${displayCurrency(Math.abs(lucro))}</div>
+            </div>
+            <div>
+              <small style="color: rgba(255,255,255,0.6);">Valor Atual</small>
+              <div style="font-weight: 700; color: #00d4ff;">R$ ${displayCurrency(valorAtual)}</div>
+            </div>
+            ` : ''}
+            <div>
+              <small style="color: rgba(255,255,255,0.6);">Dividendo/Ação</small>
+              <div style="font-weight: 700; color: #ffbb00;">R$ ${displayCurrency(acao.dividendoAcao)}</div>
+            </div>
+            <div>
+              <small style="color: rgba(255,255,255,0.6);">Dividendo Total</small>
+              <div style="font-weight: 700; color: #ffbb00;">R$ ${displayCurrency(dividendoTotal)}</div>
+            </div>
+            <div>
+              <small style="color: rgba(255,255,255,0.6);">DY Estimado</small>
+              <div style="font-weight: 700; color: #ffbb00;">${dy.toFixed(2)}%</div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+    
     let rentabilidadeTexto = '';
     let rentabilidadeEquivalente = '';
     
-    if (inv.modoRentabilidade === 'fixo') {
-      // MODO VALOR FIXO
+    if (inv.modalidade === 'FIIs' || inv.modalidade === 'Ações') {
+      rentabilidadeTexto = `${inv.rentabilidadeAnual.toFixed(2)}% a.a.`;
+    } else if (inv.modoRentabilidade === 'fixo') {
       const textoperiodo = obterTextoPeriodoFixo(inv.periodoFixo);
       rentabilidadeTexto = `R$ ${inv.rendimentoFixo.toFixed(2)} ${textoperiodo}`;
       rentabilidadeEquivalente = `Equiv. ${inv.rentabilidadeAnual.toFixed(2)}% a.a.`;
     } else {
-      // MODO PERCENTUAL (padrão)
       const tipoRent = inv.tipoRentabilidade || 'anual';
       const textoTipoRent = obterTextoTipoRentabilidade(tipoRent);
       const rentabilidadeOriginal = inv.rentabilidade || 0;
@@ -2244,7 +2340,7 @@ function renderInvestimentos() {
     card.innerHTML = `
       <div class="list-card-header">
         <div class="list-card-title">${inv.nome}</div>
-        <div class="list-card-badge badge-info">${inv.modalidade}</div>
+        <div class="list-card-badge ${badgeClass}">${inv.modalidade}</div>
       </div>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin: 15px 0;">
         <div>
@@ -2261,6 +2357,7 @@ function renderInvestimentos() {
           <div style="font-weight: 700; color: #ffffff;">${dataFormatada}</div>
         </div>
       </div>
+      ${detalhesEspecificos}
       <div style="margin: 15px 0;">
         <small style="color: rgba(255,255,255,0.6); display: block; margin-bottom: 8px;">Rendimentos Estimados:</small>
         <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;">
@@ -2299,22 +2396,37 @@ function editarInvestimento(index) {
   document.getElementById('edit_index').value = index;
   document.getElementById('edit_modalidade').value = inv.modalidade;
   document.getElementById('edit_nome').value = inv.nome;
-  document.getElementById('edit_valor').value = inv.valor;
   document.getElementById('edit_data').value = inv.data;
   document.getElementById('edit_obs').value = inv.obs || '';
   
-  // Configurar modo e valores
-  if (inv.modoRentabilidade === 'fixo') {
-    document.getElementById('edit_modo_rentabilidade').value = 'fixo';
-    document.getElementById('edit_rendimento_fixo').value = inv.rendimentoFixo || 0;
-    document.getElementById('edit_periodo_fixo').value = inv.periodoFixo || 'mensal';
+  if (inv.modalidade === 'FIIs' && inv.fii) {
+    document.getElementById('edit_fii_quantidade').value = inv.fii.quantidade;
+    document.getElementById('edit_fii_valor_cota').value = inv.fii.valorCota;
+    document.getElementById('edit_fii_provento').value = inv.fii.proventoCota;
+    document.getElementById('edit_fii_periodo').value = inv.fii.periodoProvento;
+  } else if (inv.modalidade === 'Ações' && inv.acao) {
+    document.getElementById('edit_acao_quantidade').value = inv.acao.quantidade;
+    document.getElementById('edit_acao_preco_medio').value = inv.acao.precoMedio;
+    document.getElementById('edit_acao_preco_atual').value = inv.acao.precoAtual || '';
+    document.getElementById('edit_acao_dividendo').value = inv.acao.dividendoAcao;
+    document.getElementById('edit_acao_periodo').value = inv.acao.periodoDividendo;
   } else {
-    document.getElementById('edit_modo_rentabilidade').value = 'percentual';
-    document.getElementById('edit_rentabilidade').value = inv.rentabilidade || 0;
-    document.getElementById('edit_tipo_rentabilidade').value = inv.tipoRentabilidade || 'anual';
+    document.getElementById('edit_valor').value = inv.valor;
+    
+    if (inv.modoRentabilidade === 'fixo') {
+      document.getElementById('edit_modo_rentabilidade').value = 'fixo';
+      document.getElementById('edit_rendimento_fixo').value = inv.rendimentoFixo || 0;
+      document.getElementById('edit_periodo_fixo').value = inv.periodoFixo || 'mensal';
+    } else {
+      document.getElementById('edit_modo_rentabilidade').value = 'percentual';
+      document.getElementById('edit_rentabilidade').value = inv.rentabilidade || 0;
+      document.getElementById('edit_tipo_rentabilidade').value = inv.tipoRentabilidade || 'anual';
+    }
+    
+    toggleModoRentabilidadeEdit();
   }
   
-  toggleModoRentabilidadeEdit();
+  mostrarCamposEspecificosEdit();
   document.getElementById('editModal').classList.add('active');
 }
 
@@ -2322,69 +2434,116 @@ function salvarEdicaoInvestimento() {
   const index = parseInt(document.getElementById('edit_index').value);
   const modalidade = document.getElementById('edit_modalidade').value;
   const nome = document.getElementById('edit_nome').value.trim();
-  const valor = document.getElementById('edit_valor').value;
-  const modoRentabilidade = document.getElementById('edit_modo_rentabilidade').value;
   const data = document.getElementById('edit_data').value;
   const obs = document.getElementById('edit_obs').value.trim();
   
-  if (!modalidade || !nome || !valor) {
+  if (!modalidade || !nome) {
     showNotification('Preencha os campos obrigatórios!', 'error');
     return;
   }
   
-  let rentabilidadeAnual;
+  let investimento = {
+    modalidade,
+    nome,
+    data: data || new Date().toISOString().split('T')[0],
+    obs
+  };
   
-  if (modoRentabilidade === 'percentual') {
-    // MODO PERCENTUAL
-    const rentabilidade = document.getElementById('edit_rentabilidade').value;
-    const tipoRentabilidade = document.getElementById('edit_tipo_rentabilidade').value;
+  if (modalidade === 'FIIs') {
+    const quantidade = parseFloat(document.getElementById('edit_fii_quantidade').value);
+    const valorCota = parseFloat(document.getElementById('edit_fii_valor_cota').value);
+    const proventoCota = parseFloat(document.getElementById('edit_fii_provento').value) || 0;
+    const periodoProvento = document.getElementById('edit_fii_periodo').value;
     
-    if (!rentabilidade) {
-      showNotification('Preencha a rentabilidade!', 'error');
+    if (!quantidade || !valorCota) {
+      showNotification('Preencha quantidade e valor da cota!', 'error');
       return;
     }
     
-    const rentabilidadeOriginal = parseFloat(rentabilidade || 0);
-    rentabilidadeAnual = converterParaTaxaAnual(rentabilidadeOriginal, tipoRentabilidade);
+    const valorTotal = quantidade * valorCota;
+    const taxaAnual = calcularTaxaAnualFII(valorCota, proventoCota, periodoProvento);
     
-    investimentos[index] = {
-      modalidade,
-      nome,
-      valor: parseFloat(valor),
-      modoRentabilidade: 'percentual',
-      rentabilidade: rentabilidadeOriginal,
-      tipoRentabilidade: tipoRentabilidade,
-      rentabilidadeAnual: rentabilidadeAnual,
-      data: data || new Date().toISOString().split('T')[0],
-      obs
+    investimento.valor = valorTotal;
+    investimento.rentabilidadeAnual = taxaAnual;
+    investimento.fii = {
+      quantidade,
+      valorCota,
+      proventoCota,
+      periodoProvento
+    };
+    
+  } else if (modalidade === 'Ações') {
+    const quantidade = parseFloat(document.getElementById('edit_acao_quantidade').value);
+    const precoMedio = parseFloat(document.getElementById('edit_acao_preco_medio').value);
+    const precoAtual = parseFloat(document.getElementById('edit_acao_preco_atual').value) || 0;
+    const dividendoAcao = parseFloat(document.getElementById('edit_acao_dividendo').value) || 0;
+    const periodoDividendo = document.getElementById('edit_acao_periodo').value;
+    
+    if (!quantidade || !precoMedio) {
+      showNotification('Preencha quantidade e preço médio!', 'error');
+      return;
+    }
+    
+    const valorTotal = quantidade * precoMedio;
+    const taxaAnual = calcularTaxaAnualAcao(precoMedio, dividendoAcao, periodoDividendo);
+    
+    investimento.valor = valorTotal;
+    investimento.rentabilidadeAnual = taxaAnual;
+    investimento.acao = {
+      quantidade,
+      precoMedio,
+      precoAtual,
+      dividendoAcao,
+      periodoDividendo
     };
     
   } else {
-    // MODO VALOR FIXO
-    const rendimentoFixo = document.getElementById('edit_rendimento_fixo').value;
-    const periodoFixo = document.getElementById('edit_periodo_fixo').value;
+    const valor = document.getElementById('edit_valor').value;
+    const modoRentabilidade = document.getElementById('edit_modo_rentabilidade').value;
     
-    if (!rendimentoFixo) {
-      showNotification('Preencha o rendimento fixo!', 'error');
+    if (!valor) {
+      showNotification('Preencha o valor investido!', 'error');
       return;
     }
     
-    const rendFixo = parseFloat(rendimentoFixo || 0);
-    rentabilidadeAnual = converterRendimentoFixoParaTaxaAnual(parseFloat(valor), rendFixo, periodoFixo);
+    investimento.valor = parseFloat(valor);
+    investimento.modoRentabilidade = modoRentabilidade;
     
-    investimentos[index] = {
-      modalidade,
-      nome,
-      valor: parseFloat(valor),
-      modoRentabilidade: 'fixo',
-      rendimentoFixo: rendFixo,
-      periodoFixo: periodoFixo,
-      rentabilidadeAnual: rentabilidadeAnual,
-      data: data || new Date().toISOString().split('T')[0],
-      obs
-    };
+    if (modoRentabilidade === 'percentual') {
+      const rentabilidade = document.getElementById('edit_rentabilidade').value;
+      const tipoRentabilidade = document.getElementById('edit_tipo_rentabilidade').value;
+      
+      if (!rentabilidade) {
+        showNotification('Preencha a rentabilidade!', 'error');
+        return;
+      }
+      
+      const rentabilidadeOriginal = parseFloat(rentabilidade || 0);
+      const rentabilidadeAnual = converterParaTaxaAnual(rentabilidadeOriginal, tipoRentabilidade);
+      
+      investimento.rentabilidade = rentabilidadeOriginal;
+      investimento.tipoRentabilidade = tipoRentabilidade;
+      investimento.rentabilidadeAnual = rentabilidadeAnual;
+      
+    } else {
+      const rendimentoFixo = document.getElementById('edit_rendimento_fixo').value;
+      const periodoFixo = document.getElementById('edit_periodo_fixo').value;
+      
+      if (!rendimentoFixo) {
+        showNotification('Preencha o rendimento fixo!', 'error');
+        return;
+      }
+      
+      const rendFixo = parseFloat(rendimentoFixo || 0);
+      const rentabilidadeAnual = converterRendimentoFixoParaTaxaAnual(parseFloat(valor), rendFixo, periodoFixo);
+      
+      investimento.rendimentoFixo = rendFixo;
+      investimento.periodoFixo = periodoFixo;
+      investimento.rentabilidadeAnual = rentabilidadeAnual;
+    }
   }
   
+  investimentos[index] = investimento;
   salvarDados();
   renderInvestimentos();
   atualizarRendimentosInvestimentos();
@@ -2443,7 +2602,7 @@ function calcularProjecao(tipo) {
       return;
     }
     unidade = 'meses';
-    periodoEmDias = periodo * 30; // Aproximação de 30 dias por mês
+    periodoEmDias = periodo * 30;
   } else {
     periodo = parseInt(document.getElementById('projection_years').value);
     if (!periodo || periodo < 1 || periodo > 30) {
@@ -2487,14 +2646,11 @@ function calcularProjecao(tipo) {
   const resultsDiv = document.createElement('div');
   
   Object.values(investimentosPorModalidade).forEach((data, index) => {
-    // Calcular média da rentabilidade anual equivalente
     const rentabilidadeAnual = data.itens.reduce((sum, item) => {
-      // Usar rentabilidadeAnual se existir, senão assume que é anual
       const taxa = item.rentabilidadeAnual !== undefined ? item.rentabilidadeAnual : parseFloat(item.rentabilidade || 0);
       return sum + taxa;
     }, 0) / data.itens.length;
     
-    // Cálculo considerando dias
     const taxaDiaria = Math.pow(1 + rentabilidadeAnual / 100, 1/365) - 1;
     const valorProjetado = data.valorAtual * Math.pow(1 + taxaDiaria, periodoEmDias);
     
@@ -2508,13 +2664,11 @@ function calcularProjecao(tipo) {
     const ganho = valorProjetado - data.valorAtual;
     const percentualGanho = (ganho / data.valorAtual) * 100;
     
-    // Calcular rendimentos por período para esta categoria
     const rend1m = calcularRendimento(data.valorAtual, rentabilidadeAnual, 1);
     const rend3m = calcularRendimento(data.valorAtual, rentabilidadeAnual, 3);
     const rend6m = calcularRendimento(data.valorAtual, rentabilidadeAnual, 6);
     const rend1a = calcularRendimento(data.valorAtual, rentabilidadeAnual, 12);
     
-    // Texto do período formatado
     let textoperiodo = '';
     if (tipo === 'dias') {
       textoperiodo = periodo + ' dia' + (periodo > 1 ? 's' : '');
@@ -2591,7 +2745,6 @@ function calcularProjecao(tipo) {
   const totalGanho = totalProjetado - totalAtual;
   const percentualTotal = ((totalGanho / totalAtual) * 100);
   
-  // Texto do período formatado para o resumo
   let textoperiodoResumo = '';
   if (tipo === 'dias') {
     textoperiodoResumo = periodo + ' dia' + (periodo > 1 ? 's' : '');
@@ -2718,8 +2871,7 @@ function renderProjectionChart(data, periodo) {
 
 // ==================== GOOGLE SHEETS ====================
 function carregarConfigSheets() {
-  const key = `sheets_${currentUser}`;
-  const config = JSON.parse(localStorage.getItem(key) || '{}');
+  const config = JSON.parse(localStorage.getItem('sheets_config') || '{}');
   
   if (config.url) {
     sheetsUrl = config.url;
@@ -2760,8 +2912,7 @@ function conectarSheets() {
   }
   
   sheetsUrl = url;
-  const key = `sheets_${currentUser}`;
-  localStorage.setItem(key, JSON.stringify({ url: sheetsUrl }));
+  localStorage.setItem('sheets_config', JSON.stringify({ url: sheetsUrl }));
   
   atualizarStatusSync(true);
   showNotification('Google Sheets conectado com sucesso!', 'success');
@@ -2771,8 +2922,7 @@ function desconectarSheets() {
   if (confirm('Deseja desconectar do Google Sheets?')) {
     sheetsUrl = '';
     sheetsConnected = false;
-    const key = `sheets_${currentUser}`;
-    localStorage.removeItem(key);
+    localStorage.removeItem('sheets_config');
     document.getElementById('sheets_url').value = '';
     atualizarStatusSync(false);
     showNotification('Google Sheets desconectado!', 'success');
@@ -2786,7 +2936,6 @@ async function sincronizarDados() {
   }
   
   try {
-    // Extrair o ID da planilha da URL
     const match = sheetsUrl.match(/\/d\/([a-zA-Z0-9-_]+)/);
     if (!match) {
       showNotification('URL do Google Sheets inválida!', 'error');
@@ -2794,14 +2943,11 @@ async function sincronizarDados() {
     }
     
     const spreadsheetId = match[1];
-    
-    // Construir a URL do Web App
-    const webAppUrl = `https://script.google.com/macros/s/AKfycbwswF8XzB9Hvbfwl2F_AlFLX1SatuiDPyqCfC1NPT3VRKhqPg6ZdoK82PGB2JCKKSA-cw/exec`;
+    const webAppUrl = `https://script.google.com/macros/s/AKfycbxviCS60xXWG8PLQlbKMoY_YxD6XtmdMVXQyOvlsbSdGcPNm5bvSvflx9fJKBWpcujLaQ/exec`;
     
     showNotification('Sincronizando com Google Sheets...', 'success');
     
-    // Enviar dados para o Google Sheets
-    const response = await fetch(webAppUrl, {
+    await fetch(webAppUrl, {
       method: 'POST',
       mode: 'no-cors',
       headers: {
@@ -2811,7 +2957,6 @@ async function sincronizarDados() {
         action: 'sync',
         spreadsheetId: spreadsheetId,
         data: {
-          usuario: currentUser,
           investimentos: investimentos,
           timestamp: new Date().toISOString()
         }
@@ -2826,25 +2971,8 @@ async function sincronizarDados() {
 }
 
 // ==================== CONFIGURAÇÕES ====================
-function alterarSenha() {
-  const novaSenha = document.getElementById('nova_senha').value;
-  
-  if (!novaSenha || novaSenha.length < 4) {
-    showNotification('A senha deve ter pelo menos 4 caracteres!', 'error');
-    return;
-  }
-  
-  const users = JSON.parse(localStorage.getItem('users') || '{}');
-  users[currentUser] = novaSenha;
-  localStorage.setItem('users', JSON.stringify(users));
-  
-  document.getElementById('nova_senha').value = '';
-  showNotification('Senha alterada com sucesso!', 'success');
-}
-
 function exportarDados() {
-  const key = `dados_${currentUser}`;
-  const dados = localStorage.getItem(key);
+  const dados = localStorage.getItem('sistema_financeiro');
   
   if (!dados) {
     showNotification('Nenhum dado para exportar!', 'error');
@@ -2855,7 +2983,7 @@ function exportarDados() {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `backup_${currentUser}_${new Date().toISOString().split('T')[0]}.json`;
+  a.download = `backup_sistema_financeiro_${new Date().toISOString().split('T')[0]}.json`;
   a.click();
   URL.revokeObjectURL(url);
   
@@ -2879,8 +3007,7 @@ function importarDados() {
   reader.onload = function(e) {
     try {
       const dados = JSON.parse(e.target.result);
-      const key = `dados_${currentUser}`;
-      localStorage.setItem(key, JSON.stringify(dados));
+      localStorage.setItem('sistema_financeiro', JSON.stringify(dados));
       
       carregarDados();
       showNotification('Dados importados! Recarregue a página.', 'success');
@@ -2900,25 +3027,12 @@ function limparTodosDados() {
     return;
   }
   
-  const key = `dados_${currentUser}`;
-  localStorage.removeItem(key);
+  localStorage.removeItem('sistema_financeiro');
   investimentos = [];
   
   showNotification('Todos os dados foram apagados!', 'success');
   setTimeout(() => location.reload(), 1500);
 }
-
-// ==================== INICIALIZAÇÃO ====================
-window.onload = function() {
-  const savedUser = localStorage.getItem('currentUser');
-  
-  if (savedUser) {
-    currentUser = savedUser;
-    showMainScreen();
-  }
-  
-  document.getElementById('inv_data').valueAsDate = new Date();
-};
 </script>
 </body>
 </html>
