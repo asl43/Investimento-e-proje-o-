@@ -333,8 +333,31 @@ body {
   max-width: 1400px;
   margin: 0 auto;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  padding: 0 20px;
+}
+
+.btn-sair {
+  background: rgba(255, 51, 102, 0.2);
+  border: 2px solid rgba(255, 51, 102, 0.5);
+  color: var(--light);
+  padding: 12px 25px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: 'Orbitron', sans-serif;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.btn-sair:hover {
+  background: var(--danger);
+  border-color: var(--danger);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(255, 51, 102, 0.4);
 }
 
 .header h1 {
@@ -664,6 +687,81 @@ body {
   color: var(--success);
   font-size: 22px;
   font-weight: 900;
+  font-family: 'Orbitron', sans-serif;
+}
+
+/* CARDS DE RENDIMENTOS INDIVIDUAIS POR ATIVO */
+.ativo-individual-card {
+  background: rgba(123, 47, 247, 0.1);
+  border: 2px solid rgba(123, 47, 247, 0.3);
+  border-radius: 15px;
+  padding: 25px;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+  animation: cardAppear 0.4s ease-out backwards;
+}
+
+.ativo-individual-card:hover {
+  background: rgba(123, 47, 247, 0.15);
+  border-color: var(--secondary);
+  transform: translateX(5px);
+  box-shadow: 0 5px 20px rgba(123, 47, 247, 0.3);
+}
+
+.ativo-individual-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.ativo-individual-titulo {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 20px;
+  font-weight: 900;
+  color: var(--light);
+}
+
+.ativo-individual-badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: var(--gradient-1);
+  color: var(--light);
+}
+
+.ativo-individual-rendimentos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 15px;
+}
+
+.ativo-rendimento-box {
+  background: rgba(0, 212, 255, 0.1);
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  border-radius: 10px;
+  padding: 15px;
+  text-align: center;
+}
+
+.ativo-rendimento-label {
+  font-size: 11px;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.ativo-rendimento-valor {
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--success);
   font-family: 'Orbitron', sans-serif;
 }
 
@@ -1222,6 +1320,30 @@ select option {
   .splash-loader {
     width: 250px;
   }
+  
+  /* Header Mobile */
+  .header-content {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  
+  .header h1 {
+    font-size: 18px;
+  }
+  
+  .btn-sair {
+    padding: 8px 15px;
+    font-size: 12px;
+  }
+  
+  /* Rendimentos Individuais Mobile */
+  .ativo-individual-titulo {
+    font-size: 16px;
+  }
+  
+  .ativo-individual-rendimentos {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 /* LOADING ANIMATION */
@@ -1314,6 +1436,9 @@ select option {
   <div class="header">
     <div class="header-content">
       <h1>💰 FINTECH PREMIUM</h1>
+      <button onclick="sairSistema()" class="btn-sair" title="Sair do Sistema">
+        🚪 Sair
+      </button>
     </div>
   </div>
 
@@ -1678,6 +1803,11 @@ select option {
         </div>
       </div>
 
+      <div class="summary-section">
+        <h3>💎 Rendimentos por Ativo Individual</h3>
+        <div id="rendimentosPorAtivo"></div>
+      </div>
+
       <div id="projectionResults"></div>
 
       <div id="projectionChartContainer" style="display: none;">
@@ -1925,6 +2055,38 @@ window.addEventListener('load', function() {
   }, 3000);
 });
 
+// ==================== CONFIGURAÇÃO AUTOMÁTICA DO GOOGLE SHEETS ====================
+function configurarSheetsAutomatico() {
+  const urlSheets = 'https://docs.google.com/spreadsheets/d/1ST1lNrB1HMDycLn0KhEcKf-CZjyWFfW2vU9xEFa4b2I/edit?gid=909363746#gid=909363746';
+  
+  // Salvar configuração automaticamente
+  sheetsUrl = urlSheets;
+  localStorage.setItem('sheets_config', JSON.stringify({ url: sheetsUrl }));
+  sheetsConnected = true;
+  
+  registrarLog('INFO', 'Google Sheets configurado automaticamente', urlSheets);
+}
+
+// ==================== FUNÇÃO DE SAIR ====================
+function sairSistema() {
+  if (confirm('Deseja realmente sair do sistema?')) {
+    // Salvar dados antes de sair
+    salvarDados();
+    
+    // Sincronizar com Google Sheets se conectado
+    if (sheetsConnected) {
+      sincronizarDados();
+    }
+    
+    showNotification('Dados salvos! Até logo!', 'success');
+    
+    // Recarregar página após 1.5 segundos
+    setTimeout(() => {
+      location.reload();
+    }, 1500);
+  }
+}
+
 // ==================== VARIÁVEIS GLOBAIS ====================
 let investimentos = [];
 let dashboardChartInstance = null;
@@ -1934,6 +2096,7 @@ let sheetsUrl = '';
 
 // ==================== INICIALIZAÇÃO ====================
 window.onload = function() {
+  configurarSheetsAutomatico();
   carregarDados();
   carregarConfigSheets();
   document.getElementById('inv_data').valueAsDate = new Date();
@@ -2834,6 +2997,70 @@ function atualizarRendimentosProjecao() {
   document.getElementById('projRendimento3m').textContent = 'R$ ' + displayCurrency(rendimentos['3m']);
   document.getElementById('projRendimento6m').textContent = 'R$ ' + displayCurrency(rendimentos['6m']);
   document.getElementById('projRendimento1a').textContent = 'R$ ' + displayCurrency(rendimentos['1a']);
+  
+  // Renderizar rendimentos individuais por ativo
+  renderizarRendimentosIndividuais();
+}
+
+function renderizarRendimentosIndividuais() {
+  const container = document.getElementById('rendimentosPorAtivo');
+  container.innerHTML = '';
+  
+  if (investimentos.length === 0) {
+    container.innerHTML = '<p style="text-align: center; color: rgba(255,255,255,0.5); padding: 30px;">Nenhum investimento cadastrado</p>';
+    return;
+  }
+  
+  investimentos.forEach((inv, index) => {
+    const taxaParaCalculo = inv.rentabilidadeAnual !== undefined ? inv.rentabilidadeAnual : parseFloat(inv.rentabilidade || 0);
+    
+    const rend1m = calcularRendimento(inv.valor, taxaParaCalculo, 1);
+    const rend1a = calcularRendimento(inv.valor, taxaParaCalculo, 12);
+    
+    const card = document.createElement('div');
+    card.className = 'ativo-individual-card';
+    card.style.animationDelay = (index * 0.1) + 's';
+    
+    card.innerHTML = `
+      <div class="ativo-individual-header">
+        <div class="ativo-individual-titulo">${inv.nome}</div>
+        <div class="ativo-individual-badge">${inv.modalidade}</div>
+      </div>
+      
+      <div style="margin-bottom: 15px;">
+        <div style="font-size: 13px; color: rgba(255,255,255,0.6); margin-bottom: 5px;">Valor Investido</div>
+        <div style="font-size: 24px; font-weight: 900; color: #00d4ff; font-family: 'Orbitron', sans-serif;">
+          R$ ${displayCurrency(inv.valor)}
+        </div>
+      </div>
+      
+      <div class="ativo-individual-rendimentos">
+        <div class="ativo-rendimento-box">
+          <div class="ativo-rendimento-label">Rendimento Mensal</div>
+          <div class="ativo-rendimento-valor">R$ ${displayCurrency(rend1m)}</div>
+        </div>
+        
+        <div class="ativo-rendimento-box">
+          <div class="ativo-rendimento-label">Rendimento Anual</div>
+          <div class="ativo-rendimento-valor">R$ ${displayCurrency(rend1a)}</div>
+        </div>
+        
+        <div class="ativo-rendimento-box">
+          <div class="ativo-rendimento-label">Rentabilidade</div>
+          <div class="ativo-rendimento-valor">${taxaParaCalculo.toFixed(2)}% a.a.</div>
+        </div>
+        
+        <div class="ativo-rendimento-box">
+          <div class="ativo-rendimento-label">% do Total</div>
+          <div class="ativo-rendimento-valor">
+            ${investimentos.length > 0 ? ((inv.valor / investimentos.reduce((acc, i) => acc + i.valor, 0)) * 100).toFixed(1) : '0'}%
+          </div>
+        </div>
+      </div>
+    `;
+    
+    container.appendChild(card);
+  });
 }
 
 function calcularProjecao(tipo) {
