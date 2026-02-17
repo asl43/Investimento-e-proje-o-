@@ -31,6 +31,204 @@
   --warning: #ffbb00;
 }
 
+/* ==================== SPLASH SCREEN ==================== */
+.splash-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--darker);
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.8s ease-out;
+}
+
+.splash-screen.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.splash-particles-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.splash-particle {
+  position: absolute;
+  background: var(--primary);
+  border-radius: 50%;
+  opacity: 0;
+  animation: splashParticleFloat 4s ease-in-out infinite;
+}
+
+.splash-particle:nth-child(1) {
+  width: 4px;
+  height: 4px;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.splash-particle:nth-child(2) {
+  width: 6px;
+  height: 6px;
+  left: 20%;
+  animation-delay: 0.5s;
+  background: var(--secondary);
+}
+
+.splash-particle:nth-child(3) {
+  width: 3px;
+  height: 3px;
+  left: 30%;
+  animation-delay: 1s;
+}
+
+.splash-particle:nth-child(4) {
+  width: 5px;
+  height: 5px;
+  left: 50%;
+  animation-delay: 1.5s;
+  background: var(--success);
+}
+
+.splash-particle:nth-child(5) {
+  width: 4px;
+  height: 4px;
+  left: 70%;
+  animation-delay: 2s;
+}
+
+.splash-particle:nth-child(6) {
+  width: 6px;
+  height: 6px;
+  left: 80%;
+  animation-delay: 2.5s;
+  background: var(--warning);
+}
+
+.splash-particle:nth-child(7) {
+  width: 3px;
+  height: 3px;
+  left: 90%;
+  animation-delay: 3s;
+}
+
+@keyframes splashParticleFloat {
+  0% {
+    bottom: -10px;
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    bottom: 100%;
+    opacity: 0;
+  }
+}
+
+.splash-logo-container {
+  position: relative;
+  margin-bottom: 40px;
+  z-index: 10;
+}
+
+.splash-icon {
+  font-size: 100px;
+  animation: splashIconPulse 2s ease-in-out infinite;
+  filter: drop-shadow(0 0 30px rgba(0, 212, 255, 0.8));
+}
+
+@keyframes splashIconPulse {
+  0%, 100% { 
+    transform: scale(1);
+    filter: drop-shadow(0 0 30px rgba(0, 212, 255, 0.8));
+  }
+  50% { 
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 50px rgba(255, 0, 255, 1));
+  }
+}
+
+.splash-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 48px;
+  font-weight: 900;
+  background: var(--gradient-1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 20px;
+  animation: splashTitleSlide 1s ease-out;
+  text-align: center;
+  position: relative;
+  z-index: 10;
+}
+
+@keyframes splashTitleSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.splash-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 50px;
+  animation: splashSubtitleFade 1s ease-out 0.3s backwards;
+  text-align: center;
+  position: relative;
+  z-index: 10;
+}
+
+@keyframes splashSubtitleFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.7;
+  }
+}
+
+.splash-loader {
+  width: 300px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  z-index: 10;
+}
+
+.splash-loader-bar {
+  height: 100%;
+  background: var(--gradient-1);
+  border-radius: 10px;
+  animation: splashLoaderProgress 2.5s ease-in-out forwards;
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.8);
+}
+
+@keyframes splashLoaderProgress {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
 body {
   font-family: 'Inter', sans-serif;
   background: var(--darker);
@@ -1005,6 +1203,25 @@ select option {
   .module-body {
     padding: 20px;
   }
+  
+  /* Splash Screen Mobile */
+  .splash-title {
+    font-size: 32px;
+    padding: 0 20px;
+  }
+  
+  .splash-subtitle {
+    font-size: 14px;
+    padding: 0 20px;
+  }
+  
+  .splash-icon {
+    font-size: 80px;
+  }
+  
+  .splash-loader {
+    width: 250px;
+  }
 }
 
 /* LOADING ANIMATION */
@@ -1059,6 +1276,30 @@ select option {
 </style>
 </head>
 <body>
+
+<!-- ==================== SPLASH SCREEN ==================== -->
+<div class="splash-screen" id="splashScreen">
+  <div class="splash-particles-container">
+    <div class="splash-particle"></div>
+    <div class="splash-particle"></div>
+    <div class="splash-particle"></div>
+    <div class="splash-particle"></div>
+    <div class="splash-particle"></div>
+    <div class="splash-particle"></div>
+    <div class="splash-particle"></div>
+  </div>
+  
+  <div class="splash-logo-container">
+    <div class="splash-icon">💰</div>
+  </div>
+  
+  <h1 class="splash-title">FINTECH PREMIUM</h1>
+  <p class="splash-subtitle">Gestão inteligente de investimentos</p>
+  
+  <div class="splash-loader">
+    <div class="splash-loader-bar"></div>
+  </div>
+</div>
 
 <!-- BACKGROUND ANIMADO -->
 <div class="animated-background">
@@ -1673,6 +1914,17 @@ select option {
 </div>
 
 <script>
+// ==================== SPLASH SCREEN ====================
+window.addEventListener('load', function() {
+  setTimeout(function() {
+    const splashScreen = document.getElementById('splashScreen');
+    splashScreen.classList.add('hidden');
+    setTimeout(function() {
+      splashScreen.style.display = 'none';
+    }, 800);
+  }, 3000);
+});
+
 // ==================== VARIÁVEIS GLOBAIS ====================
 let investimentos = [];
 let dashboardChartInstance = null;
